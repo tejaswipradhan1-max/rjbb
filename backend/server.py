@@ -204,7 +204,7 @@ SEED_PRODUCTS = [
         "price_inr": 379.0,
         "weight_g": 250,
         "color": "#827717",
-        "image_url": "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/rysjzygl_WhatsApp%20Image%202026-06-20%20at%2012.39.03%20%282%29.jpeg",
+        "image_url": "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/55v60azb_WhatsApp%20Image%202026-06-20%20at%2012.39.03%20%281%29.jpeg",
         "category": "single-spice",
         "stock": 150,
         "featured": True,

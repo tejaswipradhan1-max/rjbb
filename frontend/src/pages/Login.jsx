@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Crown } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import SpiceParticles from "@/components/SpiceParticles";
+
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/ao5i2hue_Rajkumari%20logo-01.PNG";
 
 export default function Login() {
   const { login } = useAuth();
@@ -30,9 +31,9 @@ export default function Login() {
       <SpiceParticles density={50} />
       <div className="absolute inset-0 spotlight" />
       <div className="relative glass-strong p-12 w-full max-w-md mx-6">
-        <div className="flex items-center gap-2 mb-8">
-          <Crown className="w-5 h-5 text-gold" strokeWidth={1.2} />
-          <span className="font-serif text-2xl gold-text">Rajkumari</span>
+        <div className="flex items-center gap-3 mb-8">
+          <img src={LOGO_URL} alt="Rajkumari" className="h-16 w-auto" style={{ mixBlendMode: "lighten" }} />
+          <span className="font-serif text-3xl gold-text">Rajkumari</span>
         </div>
         <div className="text-[10px] tracking-luxe uppercase text-gold mb-3">Royal Concierge</div>
         <h1 className="font-serif font-light text-4xl mb-10">Welcome back.</h1>

@@ -14,7 +14,8 @@ export default function Navbar() {
     <header className="fixed top-0 inset-x-0 z-40 glass border-b border-white/5">
       <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
-          <img src={LOGO_URL} alt="Rajkumari" className="h-12 w-auto" />
+          <img src={LOGO_URL} alt="Rajkumari" className="h-14 w-auto" style={{ mixBlendMode: "lighten" }} />
+          <span className="font-serif text-2xl tracking-wide gold-text hidden sm:inline">Rajkumari</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-10 text-[11px] tracking-luxe uppercase text-white/70">

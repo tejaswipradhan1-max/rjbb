@@ -7,7 +7,10 @@ export default function Footer() {
     <footer className="border-t border-white/5 bg-black mt-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-20 grid md:grid-cols-4 gap-12">
         <div>
-          <img src={LOGO_URL} alt="Rajkumari" className="h-16 w-auto mb-5" />
+          <div className="flex items-center gap-3 mb-5">
+            <img src={LOGO_URL} alt="Rajkumari" className="h-16 w-auto" style={{ mixBlendMode: "lighten" }} />
+            <span className="font-serif text-3xl gold-text">Rajkumari</span>
+          </div>
           <p className="text-sm text-white/50 font-light leading-relaxed">{`India's most premium spice atelier. Crafted by RJBB Foods Pvt. Ltd.`}</p>
         </div>
         <div>

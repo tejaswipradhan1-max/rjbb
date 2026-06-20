@@ -60,50 +60,32 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Right 3D packet */}
+        {/* Right 3D packet — actual product */}
         <div className="lg:col-span-5 relative h-[480px] lg:h-[640px] flex items-center justify-center" style={{ perspective: "1400px" }}>
           {/* golden halo */}
-          <div className="absolute w-[340px] h-[340px] rounded-full" style={{ background: "radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 70%)", filter: "blur(40px)" }} />
+          <div className="absolute w-[380px] h-[380px] rounded-full" style={{ background: "radial-gradient(circle, rgba(212,175,55,0.45) 0%, transparent 70%)", filter: "blur(50px)" }} />
+          <div className="absolute w-[260px] h-[260px] rounded-full" style={{ background: "radial-gradient(circle, rgba(229,57,53,0.3) 0%, transparent 70%)", filter: "blur(40px)" }} />
           <motion.div
             style={{ rotateY: rotY, rotateX: rotX, transformStyle: "preserve-3d" }}
-            animate={{ y: [0, -14, 0] }}
+            animate={{ y: [0, -16, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="relative w-[260px] h-[420px] lg:w-[320px] lg:h-[520px]"
+            className="relative w-[300px] lg:w-[400px]"
             data-testid="hero-3d-packet"
           >
-            {/* packet body */}
-            <div className="absolute inset-0 rounded-sm overflow-hidden shadow-[0_60px_120px_rgba(140,17,17,0.4)]"
-                 style={{
-                   background: "linear-gradient(160deg, #1a0707 0%, #2a0a0a 30%, #8C1111 60%, #5a0808 100%)",
-                   border: "1px solid rgba(212,175,55,0.4)",
-                 }}>
-              {/* shimmer */}
-              <div className="absolute inset-0 opacity-50" style={{
-                background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)",
-                backgroundSize: "300% 100%",
-                animation: "shimmer 6s linear infinite",
-              }} />
-              {/* gold seal */}
-              <div className="absolute top-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                <div className="w-14 h-14 rounded-full border border-gold/60 flex items-center justify-center gold-bg">
-                  <span className="font-serif text-2xl text-black">R</span>
-                </div>
-                <span className="mt-3 text-[8px] tracking-luxe uppercase gold-text">Royal · Pure · Unblended</span>
-              </div>
-              {/* center label */}
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center px-4">
-                <div className="font-serif text-4xl lg:text-5xl text-white leading-none">Rajkumari</div>
-                <div className="mt-1 font-serif italic text-gold text-lg">Shuddh Haldi</div>
-                <div className="gold-divider my-4 mx-auto w-3/4" />
-                <div className="text-[9px] tracking-luxe uppercase text-white/70">शुद्ध हल्दी · Stone Ground</div>
-              </div>
-              {/* bottom marks */}
-              <div className="absolute bottom-6 inset-x-0 text-center">
-                <div className="text-[8px] tracking-luxe uppercase text-white/40">Net Wt. 200 g · Hand Packed</div>
-              </div>
-            </div>
+            <img
+              src="https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/0jr7l1id_WhatsApp%20Image%202026-06-20%20at%2012.39.03.jpeg"
+              alt="Rajkumari Shuddh Mirchi"
+              className="w-full h-auto drop-shadow-[0_60px_120px_rgba(140,17,17,0.6)]"
+              style={{ filter: "saturate(1.1) contrast(1.05)" }}
+            />
+            {/* shimmer overlay */}
+            <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-40" style={{
+              background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
+              backgroundSize: "300% 100%",
+              animation: "shimmer 7s linear infinite",
+            }} />
             {/* shadow */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[80%] h-6 rounded-full bg-black/60 blur-2xl" />
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[70%] h-8 rounded-full bg-black/70 blur-2xl" />
           </motion.div>
         </div>
       </div>
