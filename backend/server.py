@@ -32,8 +32,6 @@ JWT_SECRET = os.environ.get('JWT_SECRET', 'rajkumari-fallback-secret')
 JWT_ALGO = 'HS256'
 JWT_EXP_DAYS = 14
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', 'sk_test_emergent')
-MERCHANT_UPI_ID = os.environ.get('MERCHANT_UPI_ID', 'rajkumari@upi')
-MERCHANT_NAME = os.environ.get('MERCHANT_NAME', 'Rajkumari')
 
 app = FastAPI(title="Rajkumari Luxury Spices API")
 api_router = APIRouter(prefix="/api")

@@ -31,7 +31,7 @@ export default function Register() {
       <div className="relative glass-strong p-12 w-full max-w-md mx-6">
         <div className="flex items-center gap-3 mb-8">
           <img src={LOGO_URL} alt="Rajkumari" className="h-16 w-auto" style={{ mixBlendMode: "lighten" }} />
-          <span className="font-serif text-3xl gold-text">Rajkumari</span>
+          <span className="font-serif text-3xl gold-text">Rjbb foods pvt ltd</span>
         </div>
         <div className="text-[10px] tracking-luxe uppercase text-gold mb-3">Royal Concierge</div>
         <h1 className="font-serif font-light text-4xl mb-10">Request access.</h1>
