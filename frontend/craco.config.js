@@ -61,6 +61,21 @@ let webpackConfig = {
 };
 
 webpackConfig.devServer = (devServerConfig) => {
+  // webpack-dev-server v5 compatibility: react-scripts emits some v4 keys ('https',
+  // 'onBeforeSetupMiddleware', 'onAfterSetupMiddleware') that v5 rejects. Migrate
+  // / strip them here before WDS validates the config.
+  const allowed = new Set(['allowedHosts','bonjour','client','compress','devMiddleware','headers','historyApiFallback','host','hot','ipc','liveReload','onListening','open','port','proxy','server','app','setupExitSignals','setupMiddlewares','static','watchFiles','webSocketServer']);
+  if ('https' in devServerConfig) {
+    const httpsVal = devServerConfig.https;
+    if (httpsVal) {
+      devServerConfig.server = httpsVal === true ? 'https' : { type: 'https', options: httpsVal };
+    }
+    delete devServerConfig.https;
+  }
+  for (const k of Object.keys(devServerConfig)) {
+    if (!allowed.has(k)) delete devServerConfig[k];
+  }
+
   // Add health check endpoints if enabled
   if (config.enableHealthCheck && setupHealthEndpoints && healthPluginInstance) {
     const originalSetupMiddlewares = devServerConfig.setupMiddlewares;
