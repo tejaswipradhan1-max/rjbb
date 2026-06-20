@@ -26,15 +26,15 @@ export default function WhyRajkumari() {
         </div>
 
         <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
-          {items.map((it, idx) => (
+          {items.map((it) => (
             <motion.div
-              key={idx}
+              key={it.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: idx * 0.05 }}
+              transition={{ duration: 0.7, delay: items.indexOf(it) * 0.05 }}
               className="bg-[#050505] p-10 lg:p-12 group hover:bg-[#0a0606] transition-colors duration-500"
-              data-testid={`why-item-${idx}`}
+              data-testid={`why-item-${it.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
               <it.icon className="w-6 h-6 text-gold mb-6" strokeWidth={1.1} />
               <div className="font-serif text-2xl lg:text-3xl mb-3 leading-tight">{it.title}</div>
