@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBag, User, LogOut, Crown } from "lucide-react";
+import { ShoppingBag, User, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
+
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/ao5i2hue_Rajkumari%20logo-01.PNG";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -11,9 +13,8 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 inset-x-0 z-40 glass border-b border-white/5">
       <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2" data-testid="nav-logo">
-          <Crown className="w-5 h-5 text-gold" strokeWidth={1.2} />
-          <span className="font-serif text-2xl tracking-wide gold-text">Rajkumari</span>
+        <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
+          <img src={LOGO_URL} alt="Rajkumari" className="h-12 w-auto" />
         </Link>
 
         <div className="hidden md:flex items-center gap-10 text-[11px] tracking-luxe uppercase text-white/70">
