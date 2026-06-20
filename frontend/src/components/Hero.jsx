@@ -51,7 +51,7 @@ export default function Hero() {
         >
           <div className="flex items-center gap-3 mb-8">
             <span className="h-px w-12 bg-gold" />
-            <span className="text-[10px] tracking-luxe uppercase text-gold">Est. Royal Kitchens · 1947</span>
+            <span className="text-[10px] tracking-luxe uppercase text-gold">Purity · Precision · Since 2024</span>
           </div>
           <h1 className="font-serif font-light tracking-tighter text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] text-white">
             {`India's Finest Spices,`}<br/>
@@ -81,17 +81,12 @@ export default function Hero() {
             data-testid="hero-3d-packet"
           >
             <img
-              src="/images/shuddh-haldi.png"
+              src="/images/allSpices.png"
               alt="Rajkumari Shuddh haldi"
-              className="w-full h-auto drop-shadow-[0_60px_120px_rgba(140,17,17,0.6)]"
-              style={{ filter: "saturate(1.1) contrast(1.05)" }}
+              className="w-full h-auto"
+              
             />
-            {/* shimmer overlay */}
-            <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-40" style={{
-              background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
-              backgroundSize: "300% 100%",
-              animation: "shimmer 7s linear infinite",
-            }} />
+        
             {/* shadow */}
             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[70%] h-8 rounded-full bg-black/70 blur-2xl" />
           </motion.div>
