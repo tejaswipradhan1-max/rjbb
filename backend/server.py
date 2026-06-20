@@ -532,8 +532,9 @@ async def create_upi_order(body: UpiCheckoutBody, creds: Optional[HTTPAuthorizat
     order_id = str(uuid.uuid4())
     short_ref = order_id[:8].upper()
     upi_link = (
-        f"upi://pay?pa={MERCHANT_UPI_ID}&pn={MERCHANT_NAME.replace(' ', '%20')}"
-        f"&am={total:.2f}&cu=INR&tn=RJK-{short_ref}"
+        f"upi://pay?pa={urlquote(MERCHANT_UPI_ID, safe='@.')}"
+        f"&pn={urlquote(MERCHANT_NAME)}"
+        f"&am={total:.2f}&cu=INR&tn={urlquote(f'RJK-{short_ref}')}"
     )
 
     await db.orders.insert_one({
@@ -592,10 +593,13 @@ async def mark_order_paid(order_id: str):
 
 
 @api_router.get("/orders/{order_id}")
-async def get_order(order_id: str):
+async def get_order(order_id: str, user=Depends(current_user)):
     order = await db.orders.find_one({'id': order_id}, {'_id': 0})
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
+    # Only owner (matching email) or admin can read
+    if user.get('role') != 'admin' and order.get('user_email') != user.get('email'):
+        raise HTTPException(status_code=403, detail="Forbidden")
     return order
 
 

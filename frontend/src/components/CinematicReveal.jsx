@@ -69,7 +69,7 @@ export default function CinematicReveal() {
   const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
 
   return (
-    <section ref={ref} className="relative" style={{ height: `${slides.length * 100}vh` }} data-testid="cinematic-section">
+    <section ref={ref} className="relative" style={{ height: `${slides.length * 100}vh`, position: "relative" }} data-testid="cinematic-section">
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="absolute inset-0 spotlight" />
         {slides.map((s, i) => (
