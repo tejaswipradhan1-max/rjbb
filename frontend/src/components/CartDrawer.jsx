@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { X, Plus, Minus, Trash2 } from "lucide-react";
+import { X, Plus, Minus, Trash2, CreditCard, Smartphone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useState } from "react";
+import UpiModal from "./UpiModal";
 
 export default function CartDrawer() {
   const { open, setOpen, items, remove, updateQty, total, count } = useCart();
   const [loading, setLoading] = useState(false);
+  const [upiOpen, setUpiOpen] = useState(false);
   const navigate = useNavigate();
 
-  const checkout = async () => {
+  const stripeCheckout = async () => {
     if (items.length === 0) return;
     setLoading(true);
     try {
@@ -25,6 +27,12 @@ export default function CartDrawer() {
       toast.error(e.response?.data?.detail || "Checkout failed");
       setLoading(false);
     }
+  };
+
+  const openUpi = () => {
+    if (items.length === 0) return;
+    setOpen(false);
+    setUpiOpen(true);
   };
 
   return (
@@ -86,14 +94,21 @@ export default function CartDrawer() {
                 <span className="text-[10px] tracking-luxe uppercase text-white/40">Subtotal</span>
                 <span className="font-serif text-3xl gold-text" data-testid="cart-subtotal">₹{total.toFixed(0)}</span>
               </div>
-              <button onClick={checkout} disabled={loading || items.length === 0} className="btn-gold w-full disabled:opacity-40" data-testid="cart-checkout-btn">
-                {loading ? "Preparing…" : "Secure Checkout"}
-              </button>
+              <div className="grid grid-cols-2 gap-3">
+                <button onClick={openUpi} disabled={items.length === 0} className="btn-gold disabled:opacity-40 flex items-center justify-center gap-2" data-testid="cart-upi-btn">
+                  <Smartphone className="w-3 h-3" /> Pay UPI
+                </button>
+                <button onClick={stripeCheckout} disabled={loading || items.length === 0} className="btn-ghost disabled:opacity-40 flex items-center justify-center gap-2" data-testid="cart-checkout-btn">
+                  <CreditCard className="w-3 h-3" /> {loading ? "…" : "Card"}
+                </button>
+              </div>
+              <div className="text-[9px] tracking-luxe uppercase text-white/30 text-center mt-3">UPI · Cards · Net Banking</div>
               <button onClick={() => { setOpen(false); navigate("/shop"); }} className="mt-3 w-full text-[10px] tracking-luxe uppercase text-white/50 hover:text-white py-3" data-testid="cart-continue">Continue Browsing</button>
             </div>
           </motion.aside>
         </>
       )}
+      <UpiModal open={upiOpen} onClose={() => setUpiOpen(false)} />
     </AnimatePresence>
   );
 }

@@ -20,6 +20,14 @@ export default function Admin() {
     api.get("/products").then(r => setProducts(r.data)).catch(() => {});
   }, [user]);
 
+  const markPaid = async (id) => {
+    try {
+      await api.post(`/admin/orders/${id}/mark-paid`);
+      const r = await api.get("/admin/orders");
+      setOrders(r.data);
+    } catch (e) { /* noop */ }
+  };
+
   if (loading) return <div className="min-h-screen bg-[#050505]" />;
   if (!user) return <Navigate to="/login" replace />;
   if (user.role !== "admin") return <Navigate to="/" replace />;
@@ -49,17 +57,24 @@ export default function Admin() {
         <div className="mt-10">
           {tab === "orders" && (
             <div className="glass p-2">
-              <Table headers={["Order", "Email", "Total", "Payment", "Status", "Date"]}>
+              <Table headers={["Order", "Email", "Method", "UPI Ref", "Total", "Status", "Action"]}>
                 {orders.length === 0 && <Row cells={["No orders yet."]} />}
                 {orders.map(o => (
-                  <Row key={o.id} cells={[
-                    o.id.slice(0, 8),
-                    o.user_email || "guest",
-                    `₹${o.total_inr.toFixed(0)}`,
-                    o.payment_status,
-                    o.status,
-                    new Date(o.created_at).toLocaleDateString(),
-                  ]} />
+                  <tr key={o.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors" data-testid={`order-row-${o.id}`}>
+                    <td className="py-4 px-4 font-light text-white/80">{o.id.slice(0, 8)}</td>
+                    <td className="py-4 px-4 font-light text-white/80">{o.user_email || "guest"}</td>
+                    <td className="py-4 px-4 font-light text-white/80 uppercase text-[10px] tracking-luxe">{o.payment_method || "card"}</td>
+                    <td className="py-4 px-4 font-mono text-xs text-white/60">{o.upi_reference || "—"}</td>
+                    <td className="py-4 px-4 font-serif text-gold">₹{o.total_inr.toFixed(0)}</td>
+                    <td className="py-4 px-4">
+                      <span className={`text-[10px] tracking-luxe uppercase ${o.payment_status === "paid" ? "text-gold" : "text-white/50"}`}>{o.payment_status}</span>
+                    </td>
+                    <td className="py-4 px-4">
+                      {o.payment_status !== "paid" && (
+                        <button onClick={() => markPaid(o.id)} className="text-[10px] tracking-luxe uppercase text-gold hover:text-white border border-gold/30 px-3 py-1.5" data-testid={`mark-paid-${o.id.slice(0,8)}`}>Mark Paid</button>
+                      )}
+                    </td>
+                  </tr>
                 ))}
               </Table>
             </div>

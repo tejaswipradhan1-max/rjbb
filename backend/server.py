@@ -31,6 +31,8 @@ JWT_SECRET = os.environ.get('JWT_SECRET', 'rajkumari-fallback-secret')
 JWT_ALGO = 'HS256'
 JWT_EXP_DAYS = 14
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', 'sk_test_emergent')
+MERCHANT_UPI_ID = os.environ.get('MERCHANT_UPI_ID', 'rajkumari@upi')
+MERCHANT_NAME = os.environ.get('MERCHANT_NAME', 'Rajkumari')
 
 app = FastAPI(title="Rajkumari Luxury Spices API")
 api_router = APIRouter(prefix="/api")
@@ -103,6 +105,16 @@ class CartItem(BaseModel):
 class CheckoutBody(BaseModel):
     items: List[CartItem]
     origin_url: str
+
+
+class UpiCheckoutBody(BaseModel):
+    items: List[CartItem]
+    customer_name: Optional[str] = None
+    customer_phone: Optional[str] = None
+
+
+class UpiConfirmBody(BaseModel):
+    upi_reference: str
 
 
 class OrderItemSnap(BaseModel):
@@ -478,6 +490,113 @@ async def stripe_webhook(request: Request, stripe_signature: Optional[str] = Hea
 async def my_orders(user=Depends(current_user)):
     items = await db.orders.find({'user_email': user['email']}, {'_id': 0}).sort('created_at', -1).to_list(200)
     return items
+
+
+# --- UPI flow (manual) ---
+async def _resolve_cart(items: List[CartItem]):
+    if not items:
+        raise HTTPException(status_code=400, detail="Cart is empty")
+    product_ids = [i.product_id for i in items]
+    products = await db.products.find({'id': {'$in': product_ids}}, {'_id': 0}).to_list(500)
+    pmap = {p['id']: p for p in products}
+    total = 0.0
+    snap = []
+    for it in items:
+        if it.product_id not in pmap:
+            raise HTTPException(status_code=400, detail=f"Invalid product {it.product_id}")
+        if it.quantity < 1:
+            raise HTTPException(status_code=400, detail="Invalid quantity")
+        p = pmap[it.product_id]
+        total += float(p['price_inr']) * it.quantity
+        snap.append({
+            'product_id': p['id'],
+            'name': p['name'],
+            'price_inr': float(p['price_inr']),
+            'quantity': it.quantity,
+            'image_url': p['image_url'],
+        })
+    return round(total, 2), snap
+
+
+@api_router.post("/checkout/upi")
+async def create_upi_order(body: UpiCheckoutBody, creds: Optional[HTTPAuthorizationCredentials] = Depends(bearer)):
+    total, snap = await _resolve_cart(body.items)
+    user_email = None
+    if creds:
+        try:
+            payload = pyjwt.decode(creds.credentials, JWT_SECRET, algorithms=[JWT_ALGO])
+            user_email = payload.get('email')
+        except Exception:
+            user_email = None
+
+    order_id = str(uuid.uuid4())
+    short_ref = order_id[:8].upper()
+    upi_link = (
+        f"upi://pay?pa={MERCHANT_UPI_ID}&pn={MERCHANT_NAME.replace(' ', '%20')}"
+        f"&am={total:.2f}&cu=INR&tn=RJK-{short_ref}"
+    )
+
+    await db.orders.insert_one({
+        'id': order_id,
+        'user_email': user_email,
+        'items': snap,
+        'total_inr': total,
+        'payment_method': 'upi',
+        'payment_status': 'awaiting_payment',
+        'status': 'awaiting_payment',
+        'upi_reference': None,
+        'upi_short_ref': short_ref,
+        'customer_name': body.customer_name,
+        'customer_phone': body.customer_phone,
+        'created_at': now_iso(),
+    })
+
+    return {
+        'order_id': order_id,
+        'short_ref': short_ref,
+        'total_inr': total,
+        'merchant_upi_id': MERCHANT_UPI_ID,
+        'merchant_name': MERCHANT_NAME,
+        'upi_link': upi_link,
+        'qr_url': f"https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&data={upi_link}",
+    }
+
+
+@api_router.post("/checkout/upi/{order_id}/confirm")
+async def confirm_upi(order_id: str, body: UpiConfirmBody):
+    order = await db.orders.find_one({'id': order_id}, {'_id': 0})
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    if not body.upi_reference or len(body.upi_reference.strip()) < 4:
+        raise HTTPException(status_code=400, detail="Invalid UPI reference")
+    await db.orders.update_one(
+        {'id': order_id},
+        {'$set': {
+            'upi_reference': body.upi_reference.strip(),
+            'payment_status': 'verifying',
+            'status': 'verifying',
+        }},
+    )
+    return {'ok': True, 'status': 'verifying'}
+
+
+@api_router.post("/admin/orders/{order_id}/mark-paid", dependencies=[Depends(admin_required)])
+async def mark_order_paid(order_id: str):
+    res = await db.orders.update_one(
+        {'id': order_id},
+        {'$set': {'payment_status': 'paid', 'status': 'paid'}},
+    )
+    if res.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return {'ok': True}
+
+
+@api_router.get("/orders/{order_id}")
+async def get_order(order_id: str):
+    order = await db.orders.find_one({'id': order_id}, {'_id': 0})
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return order
 
 
 @api_router.get("/admin/orders", dependencies=[Depends(admin_required)])

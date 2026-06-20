@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import SpiceParticles from "./SpiceParticles";
 
@@ -10,6 +10,13 @@ export default function Hero() {
   const sy = useSpring(my, { stiffness: 60, damping: 20 });
   const rotY = useTransform(sx, [-1, 1], [-22, 22]);
   const rotX = useTransform(sy, [-1, 1], [18, -18]);
+
+  // Scroll-driven parallax (Apple-style)
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 800], [0, 220]);
+  const heroOpacity = useTransform(scrollY, [0, 400, 700], [1, 0.7, 0]);
+  const packetY = useTransform(scrollY, [0, 800], [0, -120]);
+  const backdropX = useTransform(scrollY, [0, 800], [0, -150]);
 
   const onMove = (e) => {
     const r = ref.current?.getBoundingClientRect();
@@ -30,11 +37,11 @@ export default function Hero() {
       <SpiceParticles density={80} />
 
       {/* large faint serif backdrop word */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+      <motion.div style={{ x: backdropX }} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
         <span className="font-serif text-[22vw] leading-none text-white/[0.025] tracking-tight">Rajkumari</span>
-      </div>
+      </motion.div>
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full grid lg:grid-cols-12 gap-8 items-center pt-32 pb-20">
+      <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full grid lg:grid-cols-12 gap-8 items-center pt-32 pb-20">
         {/* Left text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -61,7 +68,8 @@ export default function Hero() {
         </motion.div>
 
         {/* Right 3D packet — actual product */}
-        <div className="lg:col-span-5 relative h-[480px] lg:h-[640px] flex items-center justify-center" style={{ perspective: "1400px" }}>
+        <motion.div style={{ y: packetY }} className="lg:col-span-5 relative h-[480px] lg:h-[640px] flex items-center justify-center" data-perspective="hero">
+          <div className="relative w-full h-full flex items-center justify-center" style={{ perspective: "1400px" }}>
           {/* golden halo */}
           <div className="absolute w-[380px] h-[380px] rounded-full" style={{ background: "radial-gradient(circle, rgba(212,175,55,0.45) 0%, transparent 70%)", filter: "blur(50px)" }} />
           <div className="absolute w-[260px] h-[260px] rounded-full" style={{ background: "radial-gradient(circle, rgba(229,57,53,0.3) 0%, transparent 70%)", filter: "blur(40px)" }} />
@@ -87,11 +95,18 @@ export default function Hero() {
             {/* shadow */}
             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[70%] h-8 rounded-full bg-black/70 blur-2xl" />
           </motion.div>
-        </div>
-      </div>
+          </div>
+        </motion.div>
+      </motion.div>
 
       {/* bottom golden fade */}
       <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#050505] to-transparent" />
+
+      {/* scroll cue */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[9px] tracking-luxe uppercase text-white/40">
+        <span>Scroll</span>
+        <span className="block w-px h-10 bg-gradient-to-b from-gold/60 to-transparent" />
+      </div>
     </section>
   );
 }
