@@ -34,7 +34,7 @@ export default function Hero() {
       data-testid="hero-section"
     >
       <div className="absolute inset-0 spotlight" />
-      <SpiceDrops count={28} />
+      <SpiceDrops count={36} />
 
       {/* large faint serif backdrop word */}
       <motion.div style={{ x: backdropX }} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
