@@ -1,8 +1,13 @@
 {
-    "name": "rjbb",
-    "private": true,
-    "scripts": {
-        "start": "craco start",
-        "build": "craco build"
-    }
+  "name": "rjbb",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "install": "npm install --workspaces",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm start",
+    "test": "cd frontend && npm test"
+  }
 }
