@@ -6,8 +6,6 @@ import SpiceDrops from "@/components/SpiceDrops";
 
 const LOGO_URL = "/images/logo-01.png";
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/ao5i2hue_Rajkumari%20logo-01.PNG";
-
 export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
