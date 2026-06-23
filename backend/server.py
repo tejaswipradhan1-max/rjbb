@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timezone, timedelta
 import bcrypt
 import jwt as pyjwt
+from urllib.parse import quote as urlquote
 from emergentintegrations.payments.stripe.checkout import (
     StripeCheckout,
     CheckoutSessionResponse,
