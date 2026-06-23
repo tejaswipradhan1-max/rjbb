@@ -37,7 +37,7 @@ export default function CheckoutSuccess() {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#050505] flex items-center justify-center" data-testid="checkout-success-page">
-      <SpiceDrops count={28} />
+      <SpiceDrops count={20} />
       <div className="absolute inset-0 spotlight" />
       <div className="relative glass-strong p-14 max-w-lg mx-6 text-center">
         <div className="flex justify-center mb-8"><Crown className="w-6 h-6 text-gold" strokeWidth={1.2} /></div>

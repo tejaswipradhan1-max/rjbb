@@ -270,12 +270,12 @@ export default function SpiceDrops({ count = 22, className = "" }) {
         Cmp: SPICES[Math.floor(Math.random() * SPICES.length)],
         left: Math.random() * 100,
         delay: Math.random() * 12,
-        duration: 9 + Math.random() * 10,
-        scale: 0.55 + Math.random() * 0.95,
+        duration: 11 + Math.random() * 11,
+        scale: 1.6 + Math.random() * 1.2,
         rotateStart: Math.random() * 360,
         rotateEnd: Math.random() * 720 - 360,
-        drift: (Math.random() - 0.5) * 80,
-        opacity: 0.35 + Math.random() * 0.45,
+        drift: (Math.random() - 0.5) * 100,
+        opacity: 0.55 + Math.random() * 0.4,
       });
     }
     return arr;

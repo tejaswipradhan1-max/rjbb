@@ -16,7 +16,7 @@ export default function Shop() {
     <div className="bg-[#050505] min-h-screen" data-testid="shop-page">
       <Navbar />
       <section className="relative pt-40 pb-20 overflow-hidden">
-        <SpiceDrops count={18} />
+        <SpiceDrops count={14} />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative">
           <div className="flex items-center gap-3 mb-6">
             <span className="h-px w-10 bg-gold" />

@@ -28,7 +28,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#050505]" data-testid="login-page">
-      <SpiceDrops count={20} />
+      <SpiceDrops count={16} />
       <div className="absolute inset-0 spotlight" />
       <div className="relative glass-strong p-12 w-full max-w-md mx-6">
         <div className="flex items-center gap-3 mb-8">
