@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { useCart } from "@/context/CartContext";
 import { Crown, Check } from "lucide-react";
-import SpiceParticles from "@/components/SpiceParticles";
+import SpiceDrops from "@/components/SpiceDrops";
 
 export default function CheckoutSuccess() {
   const loc = useLocation();
@@ -37,7 +37,7 @@ export default function CheckoutSuccess() {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#050505] flex items-center justify-center" data-testid="checkout-success-page">
-      <SpiceParticles density={70} />
+      <SpiceDrops count={28} />
       <div className="absolute inset-0 spotlight" />
       <div className="relative glass-strong p-14 max-w-lg mx-6 text-center">
         <div className="flex justify-center mb-8"><Crown className="w-6 h-6 text-gold" strokeWidth={1.2} /></div>

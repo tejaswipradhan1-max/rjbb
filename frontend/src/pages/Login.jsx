@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
-import SpiceParticles from "@/components/SpiceParticles";
+import SpiceDrops from "@/components/SpiceDrops";
 
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/ao5i2hue_Rajkumari%20logo-01.PNG";
 
@@ -28,7 +28,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#050505]" data-testid="login-page">
-      <SpiceParticles density={50} />
+      <SpiceDrops count={20} />
       <div className="absolute inset-0 spotlight" />
       <div className="relative glass-strong p-12 w-full max-w-md mx-6">
         <div className="flex items-center gap-3 mb-8">

@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
-import SpiceParticles from "./SpiceParticles";
+import SpiceDrops from "./SpiceDrops";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -34,7 +34,7 @@ export default function Hero() {
       data-testid="hero-section"
     >
       <div className="absolute inset-0 spotlight" />
-      <SpiceParticles density={80} />
+      <SpiceDrops count={28} />
 
       {/* large faint serif backdrop word */}
       <motion.div style={{ x: backdropX }} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">

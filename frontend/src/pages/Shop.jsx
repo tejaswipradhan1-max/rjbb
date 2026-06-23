@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
-import SpiceParticles from "@/components/SpiceParticles";
+import SpiceDrops from "@/components/SpiceDrops";
 import { TiltCard } from "@/components/ProductShowcase";
 import { api } from "@/lib/api";
 import { useCart } from "@/context/CartContext";
@@ -16,7 +16,7 @@ export default function Shop() {
     <div className="bg-[#050505] min-h-screen" data-testid="shop-page">
       <Navbar />
       <section className="relative pt-40 pb-20 overflow-hidden">
-        <SpiceParticles density={40} />
+        <SpiceDrops count={18} />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative">
           <div className="flex items-center gap-3 mb-6">
             <span className="h-px w-10 bg-gold" />
