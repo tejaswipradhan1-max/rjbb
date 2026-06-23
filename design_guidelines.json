@@ -79,36 +79,36 @@
   "media": {
     "hero_backgrounds": [
       {
-        "url": "https://images.pexels.com/photos/11308973/pexels-photo-11308973.jpeg",
+        "url": "/images/design-guideline-11308973.png",
         "description": "Explosive abstract art with vibrant orange and gold textures on a dark background. (Use for spice explosion background)",
         "category": "hero"
       },
       {
-        "url": "https://images.pexels.com/photos/4198656/pexels-photo-4198656.jpeg",
+        "url": "/images/royal-garam-masala.png",
         "description": "Smoked ground paprika and turmeric mixed together on black surface. (Use for storytelling or background textures)",
         "category": "background"
       }
     ],
     "products": [
       {
-        "url": "https://images.pexels.com/photos/4198654/pexels-photo-4198654.jpeg",
+        "url": "/images/design-guideline-4198654.png",
         "description": "Turmeric powder on dark background.",
         "category": "product_turmeric"
       },
       {
-        "url": "https://images.pexels.com/photos/33440713/pexels-photo-33440713.jpeg",
+        "url": "/images/design-guideline-33440713.png",
         "description": "Vibrant red chili powder with a whole red chili pepper on a dark background.",
         "category": "product_chili"
       },
       {
-        "url": "https://images.pexels.com/photos/10487771/pexels-photo-10487771.jpeg",
+        "url": "/images/design-guideline-10487771.png",
         "description": "Detailed view of coriander seeds in a wooden spoon, emphasizing texture.",
         "category": "product_coriander"
       }
     ],
     "storytelling": [
       {
-        "url": "https://images.pexels.com/photos/19450236/pexels-photo-19450236.jpeg",
+        "url": "/images/design-guideline-19450236.png",
         "description": "Detailed arches of the historic Kumbhalgarh Fort in Rajasthan, India. (Use for Royal Heritage About Section)",
         "category": "heritage"
       }

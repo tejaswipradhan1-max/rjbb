@@ -189,7 +189,7 @@ SEED_PRODUCTS = [
         "price_inr": 449.0,
         "weight_g": 200,
         "color": "#FFB300",
-        "image_url": "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/4ama2kfa_WhatsApp%20Image%202026-06-20%20at%2012.39.04.jpeg",
+        "image_url": "/images/shuddh-haldi.png",
         "category": "single-spice",
         "stock": 120,
         "featured": True,
@@ -203,7 +203,7 @@ SEED_PRODUCTS = [
         "price_inr": 499.0,
         "weight_g": 200,
         "color": "#E53935",
-        "image_url": "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/0jr7l1id_WhatsApp%20Image%202026-06-20%20at%2012.39.03.jpeg",
+        "image_url": "/images/shuddh-mirchi.png",
         "category": "single-spice",
         "stock": 100,
         "featured": True,
@@ -217,7 +217,7 @@ SEED_PRODUCTS = [
         "price_inr": 379.0,
         "weight_g": 250,
         "color": "#827717",
-        "image_url": "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/55v60azb_WhatsApp%20Image%202026-06-20%20at%2012.39.03%20%281%29.jpeg",
+        "image_url": "/images/shuddh-dhaniya.png",
         "category": "single-spice",
         "stock": 150,
         "featured": True,
@@ -231,7 +231,7 @@ SEED_PRODUCTS = [
         "price_inr": 699.0,
         "weight_g": 150,
         "color": "#BF953F",
-        "image_url": "https://images.pexels.com/photos/4198656/pexels-photo-4198656.jpeg",
+        "image_url": "/images/royal-garam-masala.png",
         "category": "blend",
         "stock": 80,
         "featured": True,
@@ -266,7 +266,7 @@ async def seed_db():
 # ----------------- Routes -----------------
 @api_router.get("/")
 async def root():
-    return {"brand": "Rajkumari", "tagline": "Purity. Heritage. Luxury."}
+    return {"brand": "Rajkumari", "tagline": "Freshness · Purity · Tradition"}
 
 
 # --- Auth ---

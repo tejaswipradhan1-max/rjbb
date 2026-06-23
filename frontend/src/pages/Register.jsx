@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import SpiceDrops from "@/components/SpiceDrops";
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/ao5i2hue_Rajkumari%20logo-01.PNG";
+const LOGO_URL = "/images/logo-01.png";
 
 export default function Register() {
   const { register } = useAuth();

@@ -17,21 +17,21 @@ export default function About() {
             A legacy quietly <span className="italic gold-text">passed in copper tins.</span>
           </h2>
           <div className="mt-10 space-y-6 text-white/65 font-light leading-relaxed max-w-xl">
-            <p>Rajkumari was born in the back-kitchens of Rajasthan, where royal cooks served only what was pure, only what was slow, and only what carried the name of the soil it came from.</p>
-            <p>Today, RJBB Foods Pvt. Ltd. carries forward that lineage — bridging single-origin Indian farms with a modern audience that refuses to compromise. Every Rajkumari tin is hand-numbered. Every batch is small. Every spice is the best a generation can ground.</p>
+            <p>Rajkumari began in 2024 as RJBB Foods Pvt. Ltd., crafting premium Rajkumari brand spices from a modern Indian kitchen philosophy.</p>
+            <p>We blend traditional heritage with contemporary quality. Every Rajkumari tin is hand-numbered. Every batch is small. Every spice is the best a generation can ground.</p>
           </div>
           <div className="mt-12 grid grid-cols-3 gap-8 max-w-md">
             <div>
-              <div className="font-serif text-4xl gold-text">79</div>
-              <div className="text-[10px] tracking-luxe uppercase text-white/50 mt-1">Years of Lineage</div>
+              <div className="font-serif text-4xl gold-text">2024</div>
+              <div className="text-[10px] tracking-luxe uppercase text-white/50 mt-1">Founded with Purpose</div>
             </div>
             <div>
-              <div className="font-serif text-4xl gold-text">11</div>
-              <div className="text-[10px] tracking-luxe uppercase text-white/50 mt-1">Estate Partners</div>
+              <div className="font-serif text-4xl gold-text">100%</div>
+              <div className="text-[10px] tracking-luxe uppercase text-white/50 mt-1"> Pure Ingredients</div>
             </div>
             <div>
               <div className="font-serif text-4xl gold-text">0</div>
-              <div className="text-[10px] tracking-luxe uppercase text-white/50 mt-1">Compromises</div>
+              <div className="text-[10px] tracking-luxe uppercase text-white/50 mt-1"> Artificial Additives</div>
             </div>
           </div>
         </motion.div>
@@ -39,12 +39,12 @@ export default function About() {
           initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.1 }}
           className="lg:col-span-5 relative h-[520px]"
         >
-          <img src="https://images.pexels.com/photos/19450236/pexels-photo-19450236.jpeg" alt="Royal heritage" className="absolute inset-0 w-full h-full object-cover" />
+          <img src="/images/design-guideline-19450236.png" alt="Royal heritage" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 glass p-6">
+          {/* <div className="absolute bottom-6 left-6 right-6 glass p-6">
             <div className="text-[10px] tracking-luxe uppercase text-gold mb-2">Hand Numbered Batch</div>
             <div className="font-serif text-2xl">No. 00041 / 02026</div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </section>

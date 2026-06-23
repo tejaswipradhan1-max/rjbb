@@ -81,8 +81,8 @@ export default function Hero() {
             data-testid="hero-3d-packet"
           >
             <img
-              src="https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/0jr7l1id_WhatsApp%20Image%202026-06-20%20at%2012.39.03.jpeg"
-              alt="Rajkumari Shuddh Mirchi"
+              src="/images/shuddh-haldi.png"
+              alt="Rajkumari Shuddh haldi"
               className="w-full h-auto drop-shadow-[0_60px_120px_rgba(140,17,17,0.6)]"
               style={{ filter: "saturate(1.1) contrast(1.05)" }}
             />

@@ -3,7 +3,7 @@ import { ShoppingBag, User, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/ao5i2hue_Rajkumari%20logo-01.PNG";
+const LOGO_URL = "/images/logo-01.png";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -15,7 +15,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
           <img src={LOGO_URL} alt="Rajkumari" className="h-14 w-auto" style={{ mixBlendMode: "lighten" }} />
-          <span className="font-serif text-2xl tracking-wide gold-text hidden sm:inline">Rajkumari</span>
+          <span className="font-serif text-2xl tracking-wide gold-text hidden sm:inline">Rjbb Foods Pvt Ltd.</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-10 text-[11px] tracking-luxe uppercase text-white/70">

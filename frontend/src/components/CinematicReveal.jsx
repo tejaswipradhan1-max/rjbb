@@ -9,21 +9,21 @@ const slides = [
     hindi: "शुद्ध हल्दी",
     tag: "Stone-ground golden lineage.",
     color: "#FFB300",
-    image: "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/4ama2kfa_WhatsApp%20Image%202026-06-20%20at%2012.39.04.jpeg",
+    image: "/images/shuddh-haldi.png",
   },
   {
     name: "Shuddh Mirchi",
     hindi: "शुद्ध मिर्ची",
     tag: "Crimson heat. Slow ground.",
     color: "#E53935",
-    image: "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/0jr7l1id_WhatsApp%20Image%202026-06-20%20at%2012.39.03.jpeg",
+    image: "/images/shuddh-mirchi.png",
   },
   {
     name: "Shuddh Dhaniya",
     hindi: "शुद्ध धनिया",
     tag: "Cold-ground citrus aroma.",
     color: "#9CCC65",
-    image: "https://customer-assets.emergentagent.com/job_shuddh-essence/artifacts/55v60azb_WhatsApp%20Image%202026-06-20%20at%2012.39.03%20%281%29.jpeg",
+    image: "/images/shuddh-dhaniya.png",
   },
 ];
 
