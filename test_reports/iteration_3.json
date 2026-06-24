@@ -1,0 +1,51 @@
+{
+  "summary": "Iteration 3 UPI + Apple-style cinematic added on top of iteration_2. Extended pytest suite to 30 tests (12 new for UPI + admin mark-paid). 30/30 backend tests PASS. Frontend Playwright verified the complete UPI manual flow (form -> QR + UPI ID -> I Have Paid -> UTR submit -> 'Sealed with gold.' success), admin orders table (Method/UPI Ref/Action columns + Mark Paid action turns row to PAID), CinematicReveal section with 3 slides + scroll-progress bar that animates on scroll (0 -> 384px), and no regressions on /, /shop, /login, /register, /admin or Stripe Card checkout path.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/checkout/upi", "issue": "Endpoint is unauthenticated (no token required). Anyone can create UPI orders. Acceptable for manual flow but consider rate-limiting / captcha in production."},
+      {"endpoint": "/api/orders/{order_id}", "issue": "Public — exposes order details (customer_name, phone, items, total, upi_reference) to anyone who knows or guesses the UUID. Should require auth & verify ownership OR admin role."},
+      {"endpoint": "/api/checkout/upi/{order_id}/confirm", "issue": "No auth required and no rate-limit; anyone with the order_id can submit a UTR. Consider tying it to the originating session/user."},
+      {"endpoint": "/api/checkout/upi", "issue": "MERCHANT_NAME may contain characters beyond spaces (e.g., '&'); only spaces are URL-encoded via str.replace, which can corrupt the upi:// link. Prefer urllib.parse.quote for pa/pn/tn fields."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Home (CinematicReveal scroll container)", "issues": ["Framer-motion console warning: 'Please ensure that the container has a non-static position, like relative/fixed/absolute, to ensure scroll offset is calculated correctly.' — add position:relative to the section wrapper used as the scroll offset target."]},
+      {"screen": "Home (likely Admin or Cart re-render)", "issues": ["React console error: 'Encountered two children with the same key' observed once after cart open. Likely duplicate React key in a list (orders table uses short 8-char order id as key, or cart items keyed by repeated slug)."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Lock down /api/orders/{order_id} (require auth + ownership or admin) — currently leaks PII (name, phone, UPI UTR) to anyone with the UUID.",
+    "Add auth or at least rate-limit to /api/checkout/upi and /api/checkout/upi/{id}/confirm.",
+    "Use urllib.parse.quote for MERCHANT_NAME / tn in upi_link instead of .replace(' ', '%20').",
+    "Fix the duplicate React key warning (Admin.jsx orders table or Cart list).",
+    "Add position:relative to CinematicReveal scroll container to silence framer-motion warning and ensure correct scroll offset across browsers."
+  ],
+  "critical_code_review_comments": [
+    "SECURITY: /api/orders/{order_id} returns full order including customer_name, customer_phone, upi_reference without authentication. This is a PII leak.",
+    "SECURITY: /api/checkout/upi/{order_id}/confirm has no auth — anyone with the order_id (8-char prefix shown in admin UI as 'short_ref' is small entropy; the full UUID is what matters but still no rate-limit) can submit/overwrite a UTR.",
+    "BUG potential: upi_link uses .replace(' ', '%20') on merchant_name only — does not encode other special characters. Use urllib.parse.quote.",
+    "Carry-over from iteration_2: @app.on_event startup/shutdown deprecated; webhook silent swallow; JWT_SECRET hardcoded fallback.",
+    "Admin.jsx: 'Mark Paid' button uses short id in data-testid (mark-paid-<8char>) — fine for testing but ensure underlying onClick uses full order.id (it does, since markPaid action works end-to-end)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (added 12 tests covering UPI create/get/confirm/empty/invalid/404 + admin mark-paid auth matrix)"
+  ],
+  "success_rate": {
+    "backend": "100% (30/30 pytest)",
+    "frontend": "100% on tested flows (UPI happy path, Admin mark-paid, Cinematic reveal, navigation regressions)"
+  },
+  "test_credentials": "Admin: admin@rajkumari.in / Royal@2026. Customer accounts created dynamically via /api/auth/register.",
+  "seed_data_creation": "Created a few TEST_ UPI orders and one admin-marked-paid order via the test suite + browser interaction. No production data modified.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend tests at /app/backend/tests/backend_test.py are comprehensive (auth, products, Stripe checkout, UPI flow, admin RBAC, mark-paid). Run: pytest /app/backend/tests/backend_test.py -v. Frontend testids verified working: cart-upi-btn, cart-checkout-btn, upi-modal, upi-name, upi-phone, upi-create, upi-qr, upi-id, upi-copy, upi-paid-btn, upi-ref-input, upi-submit-ref, upi-done-btn, cinematic-section, cinematic-slide-{0,1,2}, scroll-progress, mark-paid-<shortid>. NOTE: the data-testid for Mark Paid uses only the first 8 chars of the order UUID — if asserting POST URL via page.expect_response, do NOT use the testid suffix as the order_id; use the row's data attribute or just verify the row's status changes to PAID after click.",
+  "rca of the issue": "No defects found in iteration_3 functionality. Two non-blocking findings: (1) duplicate React key warning — likely orders/cart list keyed by non-unique short id; (2) framer-motion 'non-static position' warning on CinematicReveal scroll container. Security concerns about public GET /api/orders/{id} and unauthenticated UPI confirm endpoint are flagged as action items but are consistent with the intentionally-manual UPI design described by the user."
+}

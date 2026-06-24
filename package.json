@@ -1,0 +1,8 @@
+{
+    "name": "rjbb",
+    "private": true,
+    "scripts": {
+        "start": "craco start",
+        "build": "craco build"
+    }
+}
