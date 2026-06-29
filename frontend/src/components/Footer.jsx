@@ -1,4 +1,4 @@
-import { Crown } from "lucide-react";
+import { Crown, Phone, Mail } from "lucide-react";
 
 const LOGO_URL = "/images/logo-01.png";
 
@@ -34,6 +34,16 @@ export default function Footer() {
         <div>
           <div className="text-[10px] tracking-luxe uppercase text-gold mb-5">From the House of Purity</div>
           <p className="text-sm text-white/60 font-light leading-relaxed">RJBB Foods Pvt. Ltd.<br/>Ramkrishna Nagar, Patna-27<br/>Bihar, India</p>
+          <div className="mt-3 space-y-2">
+            <a href="tel:+916124066958" className="flex items-center gap-2 text-sm text-gold hover:underline">
+              <Phone className="w-4 h-4" />
+              <span>+91 612 4066 958</span>
+            </a>
+            <a href="mailto:contact@rjbbfoods.com" className="flex items-center gap-2 text-sm text-white/70 hover:underline">
+              <Mail className="w-4 h-4" />
+              <span>contact@rjbbfoods.com</span>
+            </a>
+          </div>
         </div>
       </div>
       <div className="gold-divider" />

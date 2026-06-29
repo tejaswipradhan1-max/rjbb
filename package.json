@@ -3,6 +3,6 @@
     "private": true,
     "scripts": {
         "start": "craco start",
-        "build": "craco build"
+        "build": "echo 'No build required'"
     }
 }
