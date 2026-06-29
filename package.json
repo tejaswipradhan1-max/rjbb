@@ -2,8 +2,8 @@
     "name": "rjbb",
     "private": true,
     "scripts": {
-        "install": "cd frontend && npm install",
-        "build": "cd frontend && npm install && npm run build",
-        "start": "cd frontend && npm start"
+        "install": "npm install",
+        "build": "npm install && npm run build",
+        "start": "npm start"
     }
 }
